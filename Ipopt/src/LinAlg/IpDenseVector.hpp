@@ -317,7 +317,7 @@ namespace Ipopt
     /** Method to check MetaData for (Perturbed)Values and create new
      *  Vector with (perturbed Parameters) Values of MetaDataMap
      */
-    SmartPtr<DenseVector> makeCopyWithMetaData (const std::string key) const
+    SmartPtr<DenseVector> MakeCopyWithMetaData (const std::string key) const
     {
       SmartPtr<DenseVector> copyWithMeta = dynamic_cast<DenseVector*>(this->MakeNewDenseVector());
 
