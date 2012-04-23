@@ -313,6 +313,23 @@ namespace Ipopt
       return MakeNewDenseVector();
     }
 
+
+    /** Method to check MetaData for (Perturbed)Values and create new
+     *  Vector with (perturbed Parameters) Values of MetaDataMap
+     */
+    SmartPtr<DenseVector> makeCopyWithMetaData (const std::string key) const
+    {
+      SmartPtr<DenseVector> copyWithMeta = dynamic_cast<DenseVector*>(this->MakeNewDenseVector());
+
+      if (!this->HasNumericMetaData(key))
+        DBG_ASSERT(false);
+
+      const std::vector<Number> metaVals = this->GetNumericMetaData(key);
+      copyWithMeta->SetValues((const Number*)&(metaVals[0]));
+      return copyWithMeta;
+    }
+
+
     /**@name Methods called by DenseVector for memory management.
      * This could allow to have sophisticated memory management in the
      * VectorSpace.

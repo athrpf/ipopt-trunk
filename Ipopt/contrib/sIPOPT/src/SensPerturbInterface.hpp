@@ -8,13 +8,13 @@
 #define __SENSPERTURBINTERFACE_HPP__
 
 #include "IpReferenced.hpp"
-#include "parametricTNLP.hpp"
+//#include "parametricTNLP.hpp"
 
 #include "IpIpoptApplication.hpp"
-#include "SensApplication.hpp"
+//#include "SensApplication.hpp"
 #include "IpPDSearchDirCalc.hpp"
 #include "IpIpoptAlg.hpp"
-#include "SensRegOp.hpp"
+//#include "SensRegOp.hpp"
 #include "IpOrigIpoptNLP.hpp"
 #include "IpDenseVector.hpp"
 
@@ -115,7 +115,7 @@ namespace Ipopt
     * they will not be implicitly created/called. */
     //@{
     /** Copy Constructor */
-    SensePerturbInterface(const SensPerturbInterface&);
+    SensPerturbInterface(const SensPerturbInterface&);
 
     /** Overloaded Equals Operator */
     void operator=(const SensPerturbInterface&);

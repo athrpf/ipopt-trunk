@@ -48,9 +48,8 @@ int main(int argv, char**argc)
   SensPerturbInterface sensClass (app_ipopt);
 
   // Set up the perturbed parameters
-  SmartPtr<const DenseVector> p0 = dynamic_cast<const DenseVector*>(GetRawPtr(ipopt_nlp->p()));
-  SmartPtr<DenseVector> dp = dynamic_cast<DenseVector*>(p0->MakeNewCopy());
-  Number* dp_ptr = dp->Values();
+
+  Number* dp_ptr = new Number[2];
   dp_ptr[0] = -0.5;
   dp_ptr[1] = 0.0;
   SmartPtr<IteratesVector> rhs = sensClass.getParaSensMatrix(dp_ptr);

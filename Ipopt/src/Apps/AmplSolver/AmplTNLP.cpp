@@ -561,6 +561,20 @@ namespace Ipopt
       con_string_md_["idx_names"] = con_names;
     }
 
+    const int var_in_xCnt = n_var - paraCnt_; //number of non-parameter in Ampl x
+    const Number* perturbValues = suffix_handler_->GetNumberSuffixValues("perturbed", AmplSuffixHandler::Variable_Source);
+    if (perturbValues){
+      for (int i=0; i<var_in_xCnt; ++i) {
+        if (perturbValues[var_x_[i]] != 0) //unequal to zero to hard? maybe check for being close to zero?
+          DBG_ASSERT(false && "Variable was assigned perturbation, only parameters should be perturbed");
+      }
+      std::vector<Number> perturbValuesVec(paraCnt_);
+      for (int i=0; i<paraCnt_; ++i) {
+        perturbValuesVec[i] = perturbValues[para_x_[i]];
+      }
+      para_numeric_md_["perturbed"] = perturbValuesVec;
+    }
+
     if (var_string_md_.size() > 0 || var_integer_md_.size() > 0 || var_numeric_md_.size() > 0
         || para_string_md_.size() > 0 || para_integer_md_.size() > 0 || para_numeric_md_.size() > 0
         || con_string_md_.size() > 0 || con_integer_md_.size() > 0 || con_numeric_md_.size() > 0) {
