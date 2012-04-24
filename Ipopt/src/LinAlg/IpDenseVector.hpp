@@ -317,12 +317,12 @@ namespace Ipopt
     /** Method to check MetaData for (Perturbed)Values and create new
      *  Vector with (perturbed Parameters) Values of MetaDataMap
      */
-    SmartPtr<DenseVector> MakeCopyWithMetaData (const std::string key) const
+    SmartPtr<DenseVector> MakeNewFromMetaData (const std::string key) const
     {
-      SmartPtr<DenseVector> copyWithMeta = dynamic_cast<DenseVector*>(this->MakeNewDenseVector());
+      SmartPtr<DenseVector> copyWithMeta = this->MakeNewDenseVector();
 
       if (!this->HasNumericMetaData(key))
-        DBG_ASSERT(false);
+        THROW_EXCEPTION(METADATA_ERROR, "Keyword \""+key+"\" was not found in MetaData (NumericMetaData)");
 
       const std::vector<Number> metaVals = this->GetNumericMetaData(key);
       copyWithMeta->SetValues((const Number*)&(metaVals[0]));
