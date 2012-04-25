@@ -40,6 +40,21 @@ namespace Ipopt
 				    Index m, bool init_lambda,
 				    Number* lambda);
 
+    /** Method to return the meta data, here we want numericmetadata of paras
+     *  the variables and the constraints */
+    virtual bool get_var_con_metadata(Index n,
+                                      StringMetaDataMapType& var_string_md,
+                                      IntegerMetaDataMapType& var_integer_md,
+                                      NumericMetaDataMapType& var_numeric_md,
+                                          Index np,
+                                          StringMetaDataMapType& para_string_md,
+                                          IntegerMetaDataMapType& para_integer_md,
+                                          NumericMetaDataMapType& para_numeric_md,
+                                      Index m,
+                                      StringMetaDataMapType& con_string_md,
+                                      IntegerMetaDataMapType& con_integer_md,
+                                      NumericMetaDataMapType& con_numeric_md);
+
     /** Method to return the objective value */
     virtual bool eval_f(Index n, const Number* x, bool new_x,
 			Index np, const Number* p, bool new_p,

@@ -95,6 +95,29 @@ bool ParametricTNLP::get_parameters(Index np, Number* p)
   return true;
   }*/
 
+/** overload this method to return any meta data for
+     *  the variables and the constraints */
+bool ParametricTNLP::get_var_con_metadata(Index n,
+                          StringMetaDataMapType& var_string_md,
+                          IntegerMetaDataMapType& var_integer_md,
+                          NumericMetaDataMapType& var_numeric_md,
+                            Index np,
+                            StringMetaDataMapType& para_string_md,
+                            IntegerMetaDataMapType& para_integer_md,
+                            NumericMetaDataMapType& para_numeric_md,
+                          Index m,
+                          StringMetaDataMapType& con_string_md,
+                          IntegerMetaDataMapType& con_integer_md,
+                          NumericMetaDataMapType& con_numeric_md)
+
+{
+  std::vector<Number> perturbValuesVec(2);
+  perturbValuesVec[0] = eta_1_perturbed_value_;
+  perturbValuesVec[1] = eta_2_perturbed_value_;
+  para_numeric_md["perturbed"] = perturbValuesVec;
+  return true;
+}
+
 bool ParametricTNLP::eval_f(Index n, const Number* x, bool new_x,
 			    Index np, const Number* p, bool new_p,
 			    Number& obj_value)

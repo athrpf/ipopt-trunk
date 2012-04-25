@@ -49,10 +49,10 @@ int main(int argv, char**argc)
 
   // Set up the perturbed parameters
 
-  Number* dp_ptr = new Number[2];
-  dp_ptr[0] = -0.5;
-  dp_ptr[1] = 0.0;
-  SmartPtr<IteratesVector> rhs = sensClass.getParaSensMatrix(dp_ptr);
+//  Number* dp_ptr = new Number[2];
+//  dp_ptr[0] = -0.5;
+//  dp_ptr[1] = 0.0;
+  SmartPtr<IteratesVector> rhs = sensClass.getParaSensMatrix();//dp_ptr);
 
   // Get the (factorized) KKT matrix
   SmartPtr<PDSystemSolver> pd_solver_ = sensClass.getKKTmatrix();

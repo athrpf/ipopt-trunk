@@ -38,7 +38,11 @@ namespace Ipopt
     app_ipopt_(app_ipopt)
     {}
 
-    const SmartPtr<IteratesVector> getParaSensMatrix (const Number* dp_ptrIn)
+    /** Method to get Matrices to calc Sensitivity of parameters.
+     *  pass NULL-pointer if you want to take perturbed values from metadat.
+     *  If you pass a pointer via dp_ptrIn, the values are taken from there
+     */
+    const SmartPtr<IteratesVector> getParaSensMatrix (const Number* dp_ptrIn = 0)
     {
       SmartPtr<const IteratesVector> curr = app_ipopt_->IpoptDataObject()->curr();
       SmartPtr<const Vector> x = curr->x();
@@ -56,8 +60,12 @@ namespace Ipopt
 
       // Set up the perturbed parameters
       SmartPtr<const DenseVector> p0 = dynamic_cast<const DenseVector*>(GetRawPtr(ipopt_nlp->p()));
-      SmartPtr<DenseVector>       dp = dynamic_cast<DenseVector*>(p0->MakeNewCopy());
-      dp->SetValues(dp_ptrIn); //changed, plz check
+      //SmartPtr<DenseVector>       dp = dynamic_cast<DenseVector*>(p0->MakeNewCopy());
+      SmartPtr<DenseVector> dp = dynamic_cast<const DenseVectorSpace*>(GetRawPtr(p0->OwnerSpace()))->MakeNewFromMetaData("perturbed");
+      if (dp_ptrIn)
+        dp->SetValues(dp_ptrIn); //changed, plz check
+      else
+        dp->AddOneVector(1, *p0, -1); //assumes, that perturbed metadata holds new p (not dp)
 
       // Set up RHS and LHS for solve
       SmartPtr<IteratesVector> rhs = app_ipopt_->IpoptDataObject()->curr()->MakeNewIteratesVector();
