@@ -20,7 +20,8 @@ param perturbed_eta2 := 1;
 #
 
 # declare AMPL suffixes for sIPOPT code
-suffix parameter, IN;
+suffix parameter IN;
+suffix perturbed IN;
 
 option presolve 0;
 
@@ -36,6 +37,8 @@ model parametric.mod;
 # sIPOPT data
 let eta1.parameter := 1;
 let eta2.parameter := 1;
+let eta1.perturbed := 4.0;
+let eta2.perturbed := 1.0;
 let eta1 := nominal_eta1;
 let eta2 := nominal_eta2;
 
